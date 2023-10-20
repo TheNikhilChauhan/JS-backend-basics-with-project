@@ -1,19 +1,21 @@
-import data from "../data.json" assert { type: "json" };
-const products = data.products;
+import Product from "../model/productsSchema.js";
+import productRoutes from "../routes/productRoutes.js";
 
-const createProduct = (req, res) => {
-  console.log(req.body);
-  const product = products.push(req.body);
+const createProduct = async (req, res) => {
+  const product = new Product();
+  (product.title = "iphone90"), (product.price = 9999);
+  await product.save();
+  console.log(`product saved successfully`);
   res.status(201).json(product);
 };
 
 const getAllProducts = (req, res) => {
-  res.json(products);
+  res.json(Product);
 };
 
 const getSingleProduct = (req, res) => {
   const id = +req.params.id;
-  const product = products.find((p) => p.id === id);
+  const product = Product.find((p) => p.id === id);
   if (product) {
     console.log(product);
   }
@@ -22,9 +24,9 @@ const getSingleProduct = (req, res) => {
 
 const replaceProduct = (req, res) => {
   const id = +req.params.id;
-  const productIndex = products.findIndex((p) => p.id === id);
+  const productIndex = Product.findIndex((p) => p.id === id);
 
-  const updateProduct = products.splice(productIndex, 1, {
+  const updateProduct = Product.splice(productIndex, 1, {
     ...req.body,
     id: id,
   });
@@ -33,9 +35,9 @@ const replaceProduct = (req, res) => {
 
 const updateProduct = (req, res) => {
   const id = +req.params.id;
-  const productIndex = products.findIndex((p) => p.id === id);
-  const product = products[productIndex];
-  const updateProduct = products.splice(productIndex, 1, {
+  const productIndex = Product.findIndex((p) => p.id === id);
+  const product = Product[productIndex];
+  const updateProduct = Product.splice(productIndex, 1, {
     ...product, //old products
     ...req.body, // updated part of the product, second part will overwrite the first part in patch
   });

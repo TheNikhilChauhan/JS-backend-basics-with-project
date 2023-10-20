@@ -1,9 +1,12 @@
 import express from "express";
 import productRouter from "./routes/productRoutes.js";
 import userRouter from "./routes/userRoutes.js";
+import dotenv from "dotenv";
+import dbConnect from "./mongoDB/config.js";
 
 const server = express();
-
+dotenv.config();
+dbConnect();
 //middleware
 
 //body parser or built in middleware
@@ -42,7 +45,7 @@ server.use("/api/v1", userRouter);
 
 //products
 //GET - /products - READ
-
-server.listen(8080, () => {
-  console.log("server started at port: 8080");
+const PORT = process.env.PORT;
+server.listen(PORT, () => {
+  console.log(`server started at port: ${PORT}`);
 });
