@@ -1,55 +1,76 @@
 import Product from "../model/productsSchema.js";
-import productRoutes from "../routes/productRoutes.js";
 
 const createProduct = async (req, res) => {
-  const product = new Product();
-  (product.title = "iphone90"), (product.price = 9999);
-  await product.save();
-  console.log(`product saved successfully`);
-  res.status(201).json(product);
-};
-
-const getAllProducts = (req, res) => {
-  res.json(Product);
-};
-
-const getSingleProduct = (req, res) => {
-  const id = +req.params.id;
-  const product = Product.find((p) => p.id === id);
-  if (product) {
-    console.log(product);
+  const product = new Product(req.body);
+  try {
+    const prod = await product.save();
+    console.log(`product saved successfully`);
+    res.status(201).json(prod);
+  } catch (error) {
+    console.log(`Error saving product: ${error.message}`);
+    res.status(500).json({ error: "Product creation failed" });
   }
-  res.json(product);
 };
 
-const replaceProduct = (req, res) => {
-  const id = +req.params.id;
-  const productIndex = Product.findIndex((p) => p.id === id);
-
-  const updateProduct = Product.splice(productIndex, 1, {
-    ...req.body,
-    id: id,
-  });
-  res.status(201).json(updateProduct);
+const getAllProducts = async (req, res) => {
+  try {
+    const product = await Product.find();
+    res.json(product);
+  } catch (error) {
+    console.log(`Error getting all products: ${error.message}`);
+    res.status(500).json({ error: "Getting all Products failed" });
+  }
 };
 
-const updateProduct = (req, res) => {
-  const id = +req.params.id;
-  const productIndex = Product.findIndex((p) => p.id === id);
-  const product = Product[productIndex];
-  const updateProduct = Product.splice(productIndex, 1, {
-    ...product, //old products
-    ...req.body, // updated part of the product, second part will overwrite the first part in patch
-  });
-  res.status(201).json(updateProduct);
+const getSingleProduct = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const getProduct = await Product.findById(id);
+    res.status(200).json(getProduct);
+  } catch (error) {
+    console.log(`Error getting a product: ${error.message}`);
+    res.status(500).json({ error: "Getting a Product failed" });
+  }
 };
 
-const deleteProduct = (req, res) => {
-  const id = +req.params.id;
-  const productIndex = products.findIndex((p) => p.id === id);
-  const product = products[productIndex];
-  products.splice(productIndex, 1);
-  res.json(product);
+const replaceProduct = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const replaceProduct = await Product.findOneAndReplace(
+      { _id: id },
+      req.body
+    );
+    res.status(200).json(replaceProduct);
+  } catch (error) {
+    console.log(`Error replacing a product: ${error.message}`);
+    res.status(500).json({ error: "Replacing a Product failed" });
+  }
+};
+
+const updateProduct = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const replaceProduct = await Product.findOneAndUpdate(
+      { _id: id },
+      req.body,
+      { new: true }
+    );
+    res.status(200).json(replaceProduct);
+  } catch (error) {
+    console.log(`Error updating a product: ${error.message}`);
+    res.status(500).json({ error: "Updating a Product failed" });
+  }
+};
+
+const deleteProduct = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const deleteProduct = await Product.findOneAndDelete({ _id: id });
+    res.status(200).json(deleteProduct);
+  } catch (error) {
+    console.log(`Error deleting a product: ${error.message}`);
+    res.status(500).json({ error: "Deleting a Product failed" });
+  }
 };
 
 export {
