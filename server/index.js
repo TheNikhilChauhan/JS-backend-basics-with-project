@@ -3,6 +3,7 @@ import productRouter from "./routes/productRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import dotenv from "dotenv";
 import dbConnect from "./mongoDB/config.js";
+import cors from "cors";
 
 const server = express();
 dotenv.config();
@@ -31,7 +32,7 @@ server.use(express.json());
 // };
 
 // server.use(auth);
-
+server.use(cors());
 server.use((req, res, next) => {
   console.log(req.body.password);
   next();
