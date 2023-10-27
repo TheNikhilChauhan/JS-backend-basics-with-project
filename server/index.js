@@ -1,6 +1,5 @@
 import express from "express";
 import productRouter from "./routes/productRoutes.js";
-import userRouter from "./routes/userRoutes.js";
 import dotenv from "dotenv";
 import dbConnect from "./mongoDB/config.js";
 import cors from "cors";
@@ -42,7 +41,6 @@ server.use(express.static(path.resolve(__dirname, process.env.PUBLIC_DIR)));
 // });
 
 server.use("/products", productRouter);
-server.use("/users", userRouter);
 server.use("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "dist", "index.html"));
 });
