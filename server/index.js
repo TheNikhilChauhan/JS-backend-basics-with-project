@@ -4,17 +4,20 @@ import userRouter from "./routes/userRoutes.js";
 import dotenv from "dotenv";
 import dbConnect from "./mongoDB/config.js";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const server = express();
 dotenv.config();
 dbConnect();
 //middleware
-
+server.use(cors());
 //body parser or built in middleware
 server.use(express.json());
 // server.use(express.urlencoded());
-
-// server.use(express.static())
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+server.use(express.static(path.resolve(__dirname, process.env.PUBLIC_DIR)));
 
 //application level middleware
 // server.use((req, res, next) => {
@@ -32,7 +35,7 @@ server.use(express.json());
 // };
 
 // server.use(auth);
-server.use(cors());
+
 server.use((req, res, next) => {
   console.log(req.body.password);
   next();
@@ -40,6 +43,9 @@ server.use((req, res, next) => {
 
 server.use("/api/v1", productRouter);
 server.use("/api/v1", userRouter);
+server.use("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "dist", "index.html"));
+});
 
 // APi - endpoint
 // also route level middleware: auth

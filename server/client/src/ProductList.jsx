@@ -7,14 +7,14 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
 
   const getProducts = async () => {
-    const res = await axios.get(`http://localhost:8080/api/v1/products`);
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/products`);
     console.log(res.data);
     setProducts(res.data);
   };
 
   const handleClick = async (id) => {
     const res = await axios.delete(
-      `http://localhost:8080/api/v1/products/${id}`
+      `${import.meta.env.VITE_API_URL}/products/${id}`
     );
     console.log(res.data);
     if (res.data._id) {
@@ -42,13 +42,9 @@ const ProductList = () => {
       </div>
       <div className="flex flex-wrap h-240px gap-20 m-3 cursor-pointer ">
         {products.map((product, index) => (
-          <ul>
+          <ul key={index}>
             <li>
-              <Product
-                {...product}
-                key={index}
-                handleClick={handleClick}
-              ></Product>
+              <Product {...product} handleClick={handleClick}></Product>
             </li>
           </ul>
         ))}
