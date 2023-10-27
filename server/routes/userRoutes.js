@@ -11,13 +11,13 @@ import {
 const userRouter = express.Router();
 
 export default userRouter
-  .get("/users", getAllUsers)
-  .get("/users/:id", getSingleUser)
+  .get("/", getAllUsers)
+  .get("/:id", getSingleUser)
   //create api - POST- /users
-  .post("/users", createUser)
+  .post("/", createUser)
   //update api - PUT - /users/:id
-  .put("/users/:id", replaceUser)
+  .put("/:id", replaceUser)
   //PATCH - doesn't overwirte only update specific part
-  .patch("/users/:id", updateUser)
+  .patch("/:id", updateUser)
   // Delete - DELETE
-  .delete("/users/:id", deleteUser);
+  .delete("/:id", deleteUser);
