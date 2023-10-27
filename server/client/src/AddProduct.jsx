@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const AddProduct = () => {
   const [product, setProduct] = useState({});
@@ -25,67 +26,79 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="bg-black w-full">
-      <form className="form-horizontal font-bold" onSubmit={handleSubmit}>
+    <div className=" w-full text-black flex justify-center align-middle p-2 ">
+      <form className="form-horizontal font-bold " onSubmit={handleSubmit}>
         <fieldset>
           {/* Form Name */}
-          <legend className=" text-2xl pb-3"> Add Product</legend>
+          <legend className=" text-2xl text-white pb-5"> Add Product</legend>
           {/* Text input*/}
           <div className="form-group pb-3">
-            <label className="col-md-4 control-label" htmlFor="title">
+            <label
+              className="col-md-4 control-label text-white "
+              htmlFor="title"
+            >
               Title
             </label>
-            <div className="col-md-4 pb-3">
+            <div className="col-md-4 pb-3 pt-2">
               <input
                 id="title"
                 name="title"
                 type="text"
                 placeholder="title"
-                className="form-control input-md"
+                className="form-control input-md pl-2 pt-1 "
                 onChange={handleChange}
               />
             </div>
           </div>
-          <div className="form-group pb-3">
-            <label className="col-md-4 control-label pb-3" htmlFor="thumbnail">
+          <div className="form-group pb-4">
+            <label
+              className="col-md-4 control-label text-white pb-3"
+              htmlFor="thumbnail"
+            >
               Thumbnail
             </label>
-            <div className="col-md-4">
+            <div className="col-md-4 pb-3 pt-2">
               <input
                 id="thumbnail"
                 name="thumbnail"
                 type="text"
                 placeholder="thumbnail"
-                className="form-control input-md"
+                className="form-control input-md pl-2 pt-1"
                 onChange={handleChange}
               />
             </div>
           </div>
           <div className="form-group pb-3">
-            <label className="col-md-4 control-label" htmlFor="price">
+            <label
+              className="col-md-4 control-label text-white"
+              htmlFor="price"
+            >
               Price
             </label>
-            <div className="col-md-4">
+            <div className="col-md-4 pb-3 pt-2">
               <input
                 id="price"
                 name="price"
                 type="number"
                 placeholder="price"
-                className="form-control input-md"
+                className="form-control input-md pl-2 pt-1"
                 onChange={handleChange}
               />
             </div>
           </div>
           {/* Select Basic */}
           <div className="form-group pb-3">
-            <label className="col-md-4 control-label" htmlFor="category">
+            <label
+              className="col-md-4 control-label text-white"
+              htmlFor="category"
+            >
               Category
             </label>
-            <div className="col-md-4">
+            <div className="col-md-4 pb-3 pt-2">
               <select
                 id="category"
                 name="category"
-                className="form-control"
+                className="form-control text-black"
                 onChange={handleChange}
               >
                 <option value="">Choose</option>
@@ -96,14 +109,17 @@ const AddProduct = () => {
           </div>
           {/* Select Basic */}
           <div className="form-group pb-3">
-            <label className="col-md-4 control-label" htmlFor="brand">
+            <label
+              className="col-md-4 control-label text-white"
+              htmlFor="brand"
+            >
               Brand
             </label>
-            <div className="col-md-4">
+            <div className="col-md-4 pb-3 pt-2">
               <select
                 id="brand"
                 name="brand"
-                className="form-control"
+                className="form-control text-black"
                 onChange={handleChange}
               >
                 <option value="">Choose</option>
@@ -115,32 +131,39 @@ const AddProduct = () => {
           {/* Text input*/}
           <div className="form-group pb-3">
             <label
-              className="col-md-4 control-label"
+              className="col-md-4 control-label text-white"
               htmlFor="discountPercentage"
             >
               Discount
             </label>
-            <div className="col-md-4 ">
+            <div className="col-md-4 pb-3 pt-2">
               <input
                 id="discountPercentage"
                 name="discountPercentage"
                 type="number"
                 placeholder="discountPercentage"
-                className="form-control input-md"
+                className="form-control input-md pl-2 pt-1"
                 onChange={handleChange}
               />
-              <span className="help-block pb-3">help</span>
+              <span className="help-block pb-3 text-white">help</span>
             </div>
           </div>
           {/* Button */}
           <div className="form-group pb-3">
-            <div className="col-md-4">
+            <div className="col-md-4 pb-3 pt-2">
               <button
                 id="singlebutton"
                 name="singlebutton"
-                className="btn btn-primary"
+                className="btn btn-primary border-solid: bg-blue-600 p-2 rounded-lg hover:bg-blue-500 "
               >
                 Add
+              </button>
+              <button
+                id="singlebutton"
+                name="singlebutton"
+                className="btn btn-primary ml-5 border-solid: bg-blue-600 p-2 rounded-lg hover:bg-blue-500 "
+              >
+                <Link to="/">Back to Products</Link>
               </button>
             </div>
           </div>
