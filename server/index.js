@@ -36,13 +36,13 @@ server.use(express.static(path.resolve(__dirname, process.env.PUBLIC_DIR)));
 
 // server.use(auth);
 
-server.use((req, res, next) => {
-  console.log(req.body.password);
-  next();
-});
+// server.use((req, res, next) => {
+//   console.log(req.body.password);
+//   next();
+// });
 
-server.use("/api/v1", productRouter);
-server.use("/api/v1", userRouter);
+server.use("/products", productRouter);
+server.use("/users", userRouter);
 server.use("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "dist", "index.html"));
 });
