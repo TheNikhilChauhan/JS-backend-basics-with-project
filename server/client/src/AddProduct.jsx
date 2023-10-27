@@ -18,10 +18,7 @@ const AddProduct = () => {
   };
 
   const addProduct = async (product) => {
-    const res = await axios.post(
-      `${import.meta.env.VITE_API_URL}/products`,
-      product
-    );
+    const res = await axios.post("/products", product);
     if (res.data) {
       alert("Product Saved Successfully!");
     }

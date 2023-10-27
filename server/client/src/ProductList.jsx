@@ -7,15 +7,13 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
 
   const getProducts = async () => {
-    const res = await axios.get(`${import.meta.env.VITE_API_URL}/products`);
+    const res = await axios.get("/products");
     console.log(res.data);
     setProducts(res.data);
   };
 
   const handleClick = async (id) => {
-    const res = await axios.delete(
-      `${import.meta.env.VITE_API_URL}/products/${id}`
-    );
+    const res = await axios.delete(`/products/${id}`);
     console.log(res.data);
     if (res.data._id) {
       setProducts(products.filter((p) => p._id !== res.data._id));
